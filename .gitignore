@@ -161,3 +161,4 @@ cython_debug/
 
 items.jsonl
 .DS_Store
+biobio.db
