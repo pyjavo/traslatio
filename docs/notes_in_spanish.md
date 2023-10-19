@@ -72,3 +72,101 @@ SELECT COUNT(*) AS row_count FROM `traslatio.items_raw.items`
 # tendría que lidiar con permisos en la nube
 # Lidiar en como descargar los datos a SQLite
 ```
+
+
+## Análisis para btener datos en csv
+
+Ejecute el siguiente comando para obtener la BD en formato .CSV:
+
+```bash
+sqlite3 -header -csv biobio.db "select * from news;" > data.csv
+
+sqlite3 -header -csv data/raw/biobio.db < src/data/make_csv.sql > data/raw/data.csv
+```
+
+Ya con esto podría usar pandas y analizarla en un notebook, pero debo primero limpiar un poco los datos. Puedo empezar haciendolo con SQL
+
+
+```sql
+SELECT COUNT(view_count) FROM news; # Hay en total 910,085 registros
+
+
+###################################################################
+############ Validar que 'view_count' solo sea números ############
+###################################################################
+
+
+
+SELECT COUNT(view_count) FROM news where printf("%d", view_count) = view_count;
+## 910,077
+
+SELECT view_count FROM news where printf("%d", view_count) = view_count; # selecciona solo los que son números
+
+
+select view_count from news where abs(view_count) = 0.0 or view_count = '0' # esto me da los que tienen letras
+# son 8 registros
+
+
+
+
+
+##############################################################################
+############ Obtener la columna current_date ############
+##############################################################################
+
+
+# SELECT date FROM news WHERE date IS strftime('%Y/%m/%d', date) LIMIT 200; # 0 records
+
+# SELECT date FROM news WHERE CHECK(date IS strftime('%Y/%m/%d', date)) LIMIT 200; # error Result: near "CHECK": syntax error
+
+# SELECT strftime('%Y/%m/%d', date) as myDate LIMIT 3; # 0 records
+
+
+# generar fecha actual y fecha de creacion en el mismo query
+SELECT DATE(); # 2023-10-19
+SELECT DATE('now'); # 2023-10-19
+
+SELECT url, title, category, date as created_date, DATE('now') as current_date, view_count from news;
+
+
+
+
+
+##############################################################################
+##################### Validar que category no sea vacío ######################
+##############################################################################
+
+
+SELECT COUNT(category) as cat_count FROM news WHERE category = ''; # 189 records son vacíos
+
+
+#### ¿Cuántas noticias tienen solo la categoría de 'noticias'?
+SELECT COUNT(category) as cat_count FROM news WHERE category='noticias'; # 475484 records
+# es el 52.2% de las 910085 noticias
+
+
+
+
+##############################################################################
+####################### Validar que title no sea vacío #######################
+##############################################################################
+
+
+SELECT COUNT(title) as title_count FROM news WHERE title = '' # 0 records
+SELECT COUNT(title) as title_count FROM news WHERE title = NULL # 0 records
+
+
+
+
+
+#########################################################
+############# Como crear una nueva tabla ################
+#########################################################
+
+
+CREATE TABLE news_v1 AS
+SELECT Url, title, category, date as created_date, DATE('now') as current_date, view_count 
+FROM news 
+WHERE printf("%d", view_count) = view_count AND category != '';
+
+```
