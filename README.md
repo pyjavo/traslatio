@@ -22,6 +22,8 @@ Data pipeline for learning data engineering concepts
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
+    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+    │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
