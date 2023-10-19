@@ -162,3 +162,5 @@ cython_debug/
 items.jsonl
 .DS_Store
 biobio.db
+clean_data_01.csv
+data.csv
