@@ -1,1 +1,0 @@
-petl==1.7.13  # https://petl.readthedocs.io/en/stable/io.html#json-files
