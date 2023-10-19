@@ -40,4 +40,29 @@ Data pipeline for learning data engineering concepts
     └──
 ```
 
+## How to run locally
+
+1. Install requirements
+
+`pip install -r requirements.txt`
+
+2. Extract data:
+    - Choice 1: Scrape data.
+        - Use this Scrapy project https://github.com/lmontanares/Translatio and then generate the SQLite database file `biobio.db`
+    - Choice 2: Download database file `biobio.db` from Google Drive.
+        - Give executable permissions to the bash file if needed. Like this:
+        ```bash
+        chmod +x src/data/download_database.sh
+        ```
+        - Run the script from the root directory:
+
+        ```bash
+        source src/data/download_database.sh
+        ```
+
+3. Now create the CSV file.
+    - From the root directory run `source src/data/make_dataset.sh`
+
+4. Open the jupyter notebook `1.0-initial-data-cleaning.ipynb` to generate `data/interim/clean_data_01.csv`
+
 <p><small>Inspired by <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
