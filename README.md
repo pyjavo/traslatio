@@ -31,13 +31,13 @@ Data pipeline for learning data engineering concepts
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── read_jsonlines.py
-    │
-    └──
+    └── src                <- Source code for use in this project.
+        ├── __init__.py    <- Makes src a Python module
+        │
+        ├── data           <- Scripts to download or generate data
+        │   └── download_dabase.sh
+        │   └── make_csv.sql
+        │   └── make_dataset.sh
 ```
 
 ## How to run locally
