@@ -7,6 +7,12 @@ sql_script_path="src/data/make_csv.sql"
 # Define the output CSV file path
 output_csv="data/raw/data.csv"
 
+# Confirm that sqlite3 is installed
+if ! command -v sqlite3 &> /dev/null; then
+    echo "The 'sqlite3' command is required but not found. Please install it."
+    return 1
+fi
+
 # Run the SQLite3 command to execute the SQL script and save the result as a CSV
 sqlite3 -header -csv "$db_path" < "$sql_script_path" > "$output_csv"
 
