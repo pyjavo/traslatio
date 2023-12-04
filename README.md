@@ -63,6 +63,6 @@ Data pipeline for learning data engineering concepts
 3. Now create the CSV file.
     - From the root directory run `source src/data/make_dataset.sh`
 
-4. Open the jupyter notebook `1.0-initial-data-cleaning.ipynb` to generate `data/interim/clean_data_01.csv`
+4. Open the jupyter notebook `notebooks/1.0-initial-data-cleaning.ipynb` to generate `data/interim/clean_data_01.csv`
 
 <p><small>Inspired by <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
